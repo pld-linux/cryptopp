@@ -9,7 +9,7 @@ License:	GPL
 Vendor:		Wei Dai
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/%{_orig_name}%{_orig_ver}.zip
-# Source0-md5:	f4bfd4ac39dc1b7f0764d61a1ec4df16
+# Source0-md5:	5c09d632ef36e889f1727fb50cb21c4d
 URL:		http://www.cryptopp.com/
 BuildRequires:	libstdc++-devel
 BuildRequires:	unzip
