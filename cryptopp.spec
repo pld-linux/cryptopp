@@ -1,16 +1,15 @@
-%define		_orig_name	 crypto
-%define         _orig_ver        51
+%define		_orig_name	crypto
+%define		_orig_ver	52
 Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
 Summary(pl):	Cryptopp - klasa C++ dostarczaj±ca narzêdzia do kryptografii
 Name:		cryptopp
-Version:	5.1
+Version:	5.2
 Release:	0.1
 License:	GPL
 Vendor:		Wei Dai
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/%{_orig_name}%{_orig_ver}.zip
 # Source0-md5:	f4bfd4ac39dc1b7f0764d61a1ec4df16
-Patch0:		crypto-5.1.patch.bz2
 URL:		http://www.cryptopp.com/
 BuildRequires:	libstdc++-devel
 BuildRequires:	unzip
@@ -61,8 +60,6 @@ Programy dla Cryptopp.
 
 %prep
 %setup -q -c
-%patch -p1
-chmod 755 configure
 
 %build
 %configure
