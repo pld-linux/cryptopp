@@ -10,6 +10,7 @@ Vendor:		Wei Dai
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/%{name}/%{_orig_name}%{_orig_ver}.zip
 # Source0-md5:	5c09d632ef36e889f1727fb50cb21c4d
+Patch0:		crypto-5.2.patch.bz2
 URL:		http://www.cryptopp.com/
 BuildRequires:	libstdc++-devel
 BuildRequires:	unzip
@@ -60,6 +61,8 @@ Programy dla Cryptopp.
 
 %prep
 %setup -q -c
+%patch -p1
+chmod 755 configure
 
 %build
 %configure
