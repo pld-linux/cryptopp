@@ -1,18 +1,17 @@
-Summary:	Cryptopp Library is a free C++ class library of cryptographic schemes.	
-Summary(pl): 	Cryptopp jest klas± C++ dostarczaj±c± narzêdzia do kryptografii. 	
-Name:		cryptopp	
-Version:	5.1	
-Release:	0.1	
+Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
+Summary(pl):	Cryptopp - klasa C++ dostarczaj±ca narzêdzia do kryptografii
+Name:		cryptopp
+Version:	5.1
+Release:	0.1
 License:	GPL
 Vendor:		Wei Dai
-Group:		Libraries	
-Source0:	http://dl.sourceforge.net/sourceforge/cryptopp/crypto51.zip	
+Group:		Libraries
+Source0:	http://dl.sourceforge.net/cryptopp/crypto51.zip
 # Source0-md5:	f4bfd4ac39dc1b7f0764d61a1ec4df16
-Patch: 		crypto-5.1.patch.bz2
-URL:		http://www.cryptopp.com	
-BuildRequires:	gcc-c++	
-BuildRequires: 	unzip 
-Requires:	gcc-c++	
+Patch0:		crypto-5.1.patch.bz2
+URL:		http://www.cryptopp.com/
+BuildRequires:	libstdc++-devel
+BuildRequires:	unzip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -23,31 +22,44 @@ Cryptopp jest klas± C++ dostarczaj±c± narzêdzia do kryptografii.
 
 
 %package devel
-Summary: 	Files for development of applications which will use Cryptopp.  
-Summary(pl): 	Files for development of applications which will use Cryptopp.
-Group: 		Libraries
+Summary:	Files for development of applications which will use Cryptopp
+Summary(pl):	Pliki do tworzenia aplikacji u¿ywaj±cych Cryptopp
+Group:		Development/Libraries
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
-Cryptopp Library is a free C++ class library of cryptographic schemes
+Files for development of applications which will use Cryptopp.
 
 %description devel -l pl
-Cryptopp jest klas± C++ dostarczaj±c± narzêdzia do kryptografii.
+Pliki do tworzenia aplikacji u¿ywaj±cych Cryptopp.
 
-%package progs 
-Summary: 	Files for development of applications which will use Crypto++
-Summary(pl): 	Files for development of applications which will use Crypto++
-Group: 		Libraries
+%package static
+Summary:	Static Cryptopp library
+Summary(pl):	Statyczna biblioteka Cryptopp
+Group:		Development/Libraries
+Requires:	%{name}-devel = %{version}-%{release}
 
-%description progs 
-Cryptopp Library is a free C++ class library of cryptographic schemes
+%description static
+Static Cryptopp library.
+
+%description static -l pl
+Statyczna biblioteka Cryptopp.
+
+%package progs
+Summary:	Cryptopp programs
+Summary(pl):	Programy dla Cryptopp
+Group:		Applications
+Requires:	%{name} = %{version}-%{release}
+
+%description progs
+Cryptopp programs.
 
 %description progs -l pl
-Cryptopp jest klas± C++ dostarczaj±c± narzêdzia do kryptografii.
-
+Programy dla Cryptopp.
 
 %prep
-%setup -c -n %{name}-%{version}
-%patch -p1 -b .autotools
+%setup -q -c
+%patch -p1
 chmod 755 configure
 
 %build
@@ -55,33 +67,39 @@ chmod 755 configure
 %{__make}
 
 %install
-%{__rm} -rf %{buildroot}
+rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_libdir}
 install -d $RPM_BUILD_ROOT%{_bindir}
 install -d $RPM_BUILD_ROOT%{_includedir}/cryptopp
 install -d $RPM_BUILD_ROOT%{_datadir}/cryptopp
 
-cp .libs/cryptest	$RPM_BUILD_ROOT%{_bindir}
-cp .libs/libcryptopp.so*  $RPM_BUILD_ROOT%{_libdir}
-cp .libs/libcryptopp.a  $RPM_BUILD_ROOT%{_libdir}
-cp *.h	$RPM_BUILD_ROOT%{_includedir}/cryptopp
-cp *.dat  $RPM_BUILD_ROOT%{_datadir}/cryptopp
+install .libs/cryptest	$RPM_BUILD_ROOT%{_bindir}
+cp -a .libs/libcryptopp.so*  $RPM_BUILD_ROOT%{_libdir}
+install .libs/libcryptopp.a  $RPM_BUILD_ROOT%{_libdir}
+install *.h	$RPM_BUILD_ROOT%{_includedir}/cryptopp
+install *.dat  $RPM_BUILD_ROOT%{_datadir}/cryptopp
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
+
 %files
-%defattr(-, root, root, 0755)
+%defattr(644,root,root,755)
 %doc License.txt Readme.txt
-%{_libdir}/libcryptopp.so.*
+%attr(755,root,root) %{_libdir}/libcryptopp.so.*.*.*
 
 %files devel
-%defattr(-, root, root, 0755)
-%{_includedir}/cryptopp/*.h
-%{_libdir}/*.a
-%{_libdir}/*.so
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libcryptopp.so
+%{_includedir}/cryptopp
+
+%files static
+%defattr(644,root,root,755)
+%{_libdir}/libcryptopp.a
 
 %files progs
-%defattr(-, root, root, 0755)
-%{_bindir}/*
-%{_datadir}/cryptopp/*.dat
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/*
+%{_datadir}/cryptopp
