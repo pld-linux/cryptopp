@@ -61,7 +61,7 @@ Programy dla Cryptopp.
 
 %prep
 %setup -q -c
-%patch -p1
+%patch0 -p1
 chmod 755 configure
 
 %build
