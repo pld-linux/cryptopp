@@ -1,7 +1,7 @@
 %define		_orig_name	cryptopp
 %define		_orig_ver	521
 Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
-Summary(pl):	Cryptopp - klasa C++ dostarczaj±ca narzêdzia do kryptografii
+Summary(pl.UTF-8):   Cryptopp - klasa C++ dostarczajÄ…ca narzÄ™dzia do kryptografii
 Name:		cryptopp
 Version:	5.2.1
 Release:	0.1
@@ -19,44 +19,44 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Cryptopp Library is a free C++ class library of cryptographic schemes.
 
-%description -l pl
-Cryptopp jest klas± C++ dostarczaj±c± narzêdzia do kryptografii.
+%description -l pl.UTF-8
+Cryptopp jest klasÄ… C++ dostarczajÄ…cÄ… narzÄ™dzia do kryptografii.
 
 
 %package devel
 Summary:	Files for development of applications which will use Cryptopp
-Summary(pl):	Pliki do tworzenia aplikacji u¿ywaj±cych Cryptopp
+Summary(pl.UTF-8):   Pliki do tworzenia aplikacji uÅ¼ywajÄ…cych Cryptopp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Files for development of applications which will use Cryptopp.
 
-%description devel -l pl
-Pliki do tworzenia aplikacji u¿ywaj±cych Cryptopp.
+%description devel -l pl.UTF-8
+Pliki do tworzenia aplikacji uÅ¼ywajÄ…cych Cryptopp.
 
 %package static
 Summary:	Static Cryptopp library
-Summary(pl):	Statyczna biblioteka Cryptopp
+Summary(pl.UTF-8):   Statyczna biblioteka Cryptopp
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static Cryptopp library.
 
-%description static -l pl
+%description static -l pl.UTF-8
 Statyczna biblioteka Cryptopp.
 
 %package progs
 Summary:	Cryptopp programs
-Summary(pl):	Programy dla Cryptopp
+Summary(pl.UTF-8):   Programy dla Cryptopp
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 
 %description progs
 Cryptopp programs.
 
-%description progs -l pl
+%description progs -l pl.UTF-8
 Programy dla Cryptopp.
 
 %prep
