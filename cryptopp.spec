@@ -1,7 +1,7 @@
 %define		_orig_name	cryptopp
 %define		_orig_ver	521
 Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
-Summary(pl.UTF-8):   Cryptopp - klasa C++ dostarczająca narzędzia do kryptografii
+Summary(pl.UTF-8):	Cryptopp - klasa C++ dostarczająca narzędzia do kryptografii
 Name:		cryptopp
 Version:	5.2.1
 Release:	0.1
@@ -25,7 +25,7 @@ Cryptopp jest klasą C++ dostarczającą narzędzia do kryptografii.
 
 %package devel
 Summary:	Files for development of applications which will use Cryptopp
-Summary(pl.UTF-8):   Pliki do tworzenia aplikacji używających Cryptopp
+Summary(pl.UTF-8):	Pliki do tworzenia aplikacji używających Cryptopp
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
@@ -37,7 +37,7 @@ Pliki do tworzenia aplikacji używających Cryptopp.
 
 %package static
 Summary:	Static Cryptopp library
-Summary(pl.UTF-8):   Statyczna biblioteka Cryptopp
+Summary(pl.UTF-8):	Statyczna biblioteka Cryptopp
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
@@ -49,7 +49,7 @@ Statyczna biblioteka Cryptopp.
 
 %package progs
 Summary:	Cryptopp programs
-Summary(pl.UTF-8):   Programy dla Cryptopp
+Summary(pl.UTF-8):	Programy dla Cryptopp
 Group:		Applications
 Requires:	%{name} = %{version}-%{release}
 
