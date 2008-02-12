@@ -1,18 +1,20 @@
-%define		_orig_name	cryptopp
-%define		_orig_ver	521
+%define		_orig_ver	552
 Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
 Summary(pl.UTF-8):	Cryptopp - klasa C++ dostarczająca narzędzia do kryptografii
 Name:		cryptopp
-Version:	5.2.1
-Release:	0.1
+Version:	5.5.2
+Release:	1
 License:	GPL
 Vendor:		Wei Dai
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/%{name}/%{_orig_name}%{_orig_ver}.zip
-# Source0-md5:	82a00c44235ccbae2bedf9cb16c40ac3
-Patch0:		crypto-5.2.patch.bz2
+Source0:	http://dl.sourceforge.net/%{name}/%{name}%{_orig_ver}.zip
+# Source0-md5:	a889be9d9ad5c202c925fb105caa4857
+Patch0:		%{name}-autotools.patch
 URL:		http://www.cryptopp.com/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool
 BuildRequires:	unzip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -62,10 +64,16 @@ Programy dla Cryptopp.
 %prep
 %setup -q -c
 %patch0 -p1
-chmod 755 configure
 
 %build
-%configure
+%{__libtoolize}
+%{__aclocal}
+%{__autoconf}
+%{__autoheader}
+%{__automake}
+
+%configure \
+	CXXFLAGS="%{rpmcxxflags} -DCRYPTOPP_DISABLE_X86ASM"
 %{__make}
 
 %install
@@ -75,7 +83,7 @@ install -d $RPM_BUILD_ROOT%{_bindir}
 install -d $RPM_BUILD_ROOT%{_includedir}/cryptopp
 install -d $RPM_BUILD_ROOT%{_datadir}/cryptopp
 
-install .libs/cryptest	$RPM_BUILD_ROOT%{_bindir}
+install .libs/cryptest	$RPM_BUILD_ROOT%{_bindir}/cryptest
 cp -a .libs/libcryptopp.so*  $RPM_BUILD_ROOT%{_libdir}
 install .libs/libcryptopp.a  $RPM_BUILD_ROOT%{_libdir}
 install *.h	$RPM_BUILD_ROOT%{_includedir}/cryptopp
