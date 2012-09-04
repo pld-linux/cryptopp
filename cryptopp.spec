@@ -6,7 +6,7 @@ Version:	5.6.1
 Release:	1
 License:	GPL
 Group:		Libraries
-Source0:	http://dl.sourceforge.net/cryptopp/%{name}%{orig_ver}.zip
+Source0:	http://dl.sourceforge.net/project/%{name}/%{name}/%{version}/%{name}%{orig_ver}.zip
 # Source0-md5:	96cbeba0907562b077e26bcffb483828
 Patch0:		%{name}-autotools.patch
 Patch1:		cxx.patch
