@@ -293,7 +293,7 @@
 ***************
 *** 0 ****
 --- 1,13 ----
-+ AC_INIT([cryptopp], 5.5)
++ AC_INIT([cryptopp], 5.6.1)
 + AC_CONFIG_SRCDIR(configure.in)
 + AM_INIT_AUTOMAKE([no-define])
 + AM_CONFIG_HEADER([local.h])
