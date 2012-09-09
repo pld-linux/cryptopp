@@ -1,6 +1,6 @@
 %define		orig_ver	561
 Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
-Summary(pl.UTF-8):	Cryptopp - klasa C++ dostarczająca narzędzia do kryptografii
+Summary(pl.UTF-8):	Cryptopp - biblioteka klas C++ dostarczająca narzędzia do kryptografii
 Name:		cryptopp
 Version:	5.6.1
 Release:	1
@@ -22,7 +22,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Cryptopp Library is a free C++ class library of cryptographic schemes.
 
 %description -l pl.UTF-8
-Cryptopp jest klasą C++ dostarczającą narzędzia do kryptografii.
+Cryptopp jest biblioteką klas C++ dostarczającą narzędzia do kryptografii.
 
 
 %package devel
@@ -48,18 +48,6 @@ Static Cryptopp library.
 
 %description static -l pl.UTF-8
 Statyczna biblioteka Cryptopp.
-
-%package progs
-Summary:	Cryptopp programs
-Summary(pl.UTF-8):	Programy dla Cryptopp
-Group:		Applications
-Requires:	%{name} = %{version}-%{release}
-
-%description progs
-Cryptopp programs.
-
-%description progs -l pl.UTF-8
-Programy dla Cryptopp.
 
 %prep
 %setup -q -c
@@ -100,8 +88,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libcryptopp.so
 %{_includedir}/cryptopp
+%attr(755,root,root) %{_libdir}/libcryptopp.la
+%attr(755,root,root) %{_libdir}/libcryptopp.so
 
 %files static
 %defattr(644,root,root,755)
