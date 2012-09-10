@@ -3,7 +3,7 @@ Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
 Summary(pl.UTF-8):	Cryptopp - biblioteka klas C++ dostarczająca narzędzia do kryptografii
 Name:		cryptopp
 Version:	5.6.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}/%{version}/%{name}%{orig_ver}.zip
@@ -62,7 +62,7 @@ Statyczna biblioteka Cryptopp.
 %{__automake}
 
 %configure \
-	CXXFLAGS="%{rpmcxxflags} -DCRYPTOPP_DISABLE_X86ASM"
+	CXXFLAGS="%{rpmcxxflags}"
 
 %{__make}
 
