@@ -1,7 +1,8 @@
 #
 # Conditional build:
 %bcond_without	asm		# disable x86 assembly code
-#
+%bcond_without	tests		# build without tests
+
 %ifarch x32
 %undefine	with_asm
 %endif
@@ -75,15 +76,16 @@ CFLAGS="%{rpmcflags} -DCRYPTOPP_DISABLE_X86ASM"
 CXXFLAGS="%{rpmcxxflags} -DCRYPTOPP_DISABLE_X86ASM"
 %endif
 %configure
-
 %{__make}
 
+%if %{with tests}
 ./cryptest v
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 %{__make} install \
+	INSTALL="install -p -c " \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
