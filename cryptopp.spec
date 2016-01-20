@@ -12,11 +12,12 @@ Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
 Summary(pl.UTF-8):	Cryptopp - biblioteka klas C++ dostarczająca narzędzia do kryptografii
 Name:		cryptopp
 Version:	5.6.1
-Release:	3
+Release:	4
 License:	BSD-like
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/cryptopp/%{name}%{orig_ver}.zip
 # Source0-md5:	96cbeba0907562b077e26bcffb483828
+Source1:	%{name}.pc
 Patch0:		%{name}-autotools.patch
 Patch1:		cxx.patch
 URL:		http://www.cryptopp.com/
@@ -88,6 +89,13 @@ rm -rf $RPM_BUILD_ROOT
 	INSTALL="install -p -c " \
 	DESTDIR=$RPM_BUILD_ROOT
 
+install -d $RPM_BUILD_ROOT%{_pkgconfigdir}
+sed -e "
+	s|@PREFIX@|%{_prefix}|g
+	s|@LIBDIR@|%{_libdir}|g
+	s|@VERSION@|%{version}|g
+" %{SOURCE1} > $RPM_BUILD_ROOT%{_pkgconfigdir}/cryptopp.pc
+
 %{__rm} $RPM_BUILD_ROOT%{_bindir}/cryptest
 
 %clean
@@ -107,6 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libcryptopp.so
 %{_libdir}/libcryptopp.la
 %{_includedir}/cryptopp
+%{_pkgconfigdir}/cryptopp.pc
 
 %files static
 %defattr(644,root,root,755)

@@ -1,0 +1,13 @@
+prefix=@PREFIX@
+exec_prefix=@PREFIX@
+libdir=@LIBDIR@
+
+Name: Crypto++
+Description: A free C++ class library of cryptographic schemes
+Version: @VERSION@
+URL: http://www.cryptopp.com
+Requires:
+Conflicts:
+Libs: -lcryptopp
+Libs.private:
+Cflags:
