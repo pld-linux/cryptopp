@@ -77,7 +77,7 @@ CFLAGS="%{rpmcflags} -DCRYPTOPP_DISABLE_X86ASM"
 CXXFLAGS="%{rpmcxxflags} -DCRYPTOPP_DISABLE_X86ASM"
 %endif
 %configure
-%{__make}
+%{__make} -j1
 
 %if %{with tests}
 ./cryptest v
