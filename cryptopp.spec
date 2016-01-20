@@ -88,6 +88,8 @@ rm -rf $RPM_BUILD_ROOT
 	INSTALL="install -p -c " \
 	DESTDIR=$RPM_BUILD_ROOT
 
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/cryptest
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
