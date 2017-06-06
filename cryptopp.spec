@@ -7,24 +7,20 @@
 %undefine	with_asm
 %endif
 
-%define		orig_ver	561
+%define		orig_ver	564
 Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
 Summary(pl.UTF-8):	Cryptopp - biblioteka klas C++ dostarczająca narzędzia do kryptografii
 Name:		cryptopp
-Version:	5.6.1
-Release:	4
-License:	BSD-like
+Version:	5.6.4
+Release:	1
+License:	Boost v1.0 (BSD-like)
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/cryptopp/%{name}%{orig_ver}.zip
-# Source0-md5:	96cbeba0907562b077e26bcffb483828
+# Source0-md5:	4ee7e5cdd4a45a14756c169eaf2a77fc
 Source1:	%{name}.pc
-Patch0:		%{name}-autotools.patch
-Patch1:		cxx.patch
 URL:		http://www.cryptopp.com/
-BuildRequires:	autoconf
-BuildRequires:	automake
+BuildRequires:	cmake >= 2.8.5
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool >= 2:1.5
 BuildRequires:	unzip
 Obsoletes:	cryptopp-progs
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -62,31 +58,23 @@ Statyczna biblioteka Cryptopp.
 
 %prep
 %setup -q -c
-%patch0 -p1
-%patch1 -p0
 
 %build
-%{__libtoolize}
-%{__aclocal}
-%{__autoconf}
-%{__autoheader}
-%{__automake}
+install -d build
+cd build
+%cmake .. \
+	%{!?with_asm:-DDISABLE_ASM=ON}
 
-%if %{without asm}
-CFLAGS="%{rpmcflags} -DCRYPTOPP_DISABLE_X86ASM"
-CXXFLAGS="%{rpmcxxflags} -DCRYPTOPP_DISABLE_X86ASM"
-%endif
-%configure
-%{__make} -j1
+%{__make}
 
 %if %{with tests}
-./cryptest v
+ctest -V
 %endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install \
-	INSTALL="install -p -c " \
+
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_pkgconfigdir}
@@ -96,7 +84,9 @@ sed -e "
 	s|@VERSION@|%{version}|g
 " %{SOURCE1} > $RPM_BUILD_ROOT%{_pkgconfigdir}/cryptopp.pc
 
-%{__rm} $RPM_BUILD_ROOT%{_bindir}/cryptest
+# tests
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/cryptest.exe
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/cryptopp/Test{Data,Vectors}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -107,15 +97,14 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc License.txt Readme.txt
-%attr(755,root,root) %{_libdir}/libcryptopp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libcryptopp.so.4
+%attr(755,root,root) %{_libdir}/libcryptopp.so.5.6
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libcryptopp.so
-%{_libdir}/libcryptopp.la
 %{_includedir}/cryptopp
 %{_pkgconfigdir}/cryptopp.pc
+%{_libdir}/cmake/cryptopp
 
 %files static
 %defattr(644,root,root,755)
