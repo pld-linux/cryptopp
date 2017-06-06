@@ -1,0 +1,13 @@
+--- cryptopp-5.6.4/CMakeLists.txt.orig	2016-09-11 09:07:48.000000000 +0200
++++ cryptopp-5.6.4/CMakeLists.txt	2017-06-06 21:43:31.328699739 +0200
+@@ -306,8 +306,8 @@
+ if(NOT CMAKE_VERSION VERSION_LESS 2.8.8)	# CMakePackageConfigHelpers is supported from 2.8.8
+ 	include(CMakePackageConfigHelpers)
+ 	write_basic_package_version_file("${PROJECT_BINARY_DIR}/cryptopp-config-version.cmake" VERSION ${cryptopp_VERSION_MAJOR}.${cryptopp_VERSION_MINOR}.${cryptopp_VERSION_PATCH} COMPATIBILITY SameMajorVersion)
+-	install(FILES cryptopp-config.cmake ${PROJECT_BINARY_DIR}/cryptopp-config-version.cmake DESTINATION "lib/cmake/cryptopp")
+-	install(EXPORT ${export_name} DESTINATION "lib/cmake/cryptopp")
++	install(FILES cryptopp-config.cmake ${PROJECT_BINARY_DIR}/cryptopp-config-version.cmake DESTINATION "lib${LIB_SUFFIX}/cmake/cryptopp")
++	install(EXPORT ${export_name} DESTINATION "lib${LIB_SUFFIX}/cmake/cryptopp")
+ endif()
+ 
+ # Tests

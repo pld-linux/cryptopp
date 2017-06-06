@@ -3,10 +3,6 @@
 %bcond_without	asm		# disable x86 assembly code
 %bcond_without	tests		# build without tests
 
-%ifarch x32
-%undefine	with_asm
-%endif
-
 %define		orig_ver	564
 Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
 Summary(pl.UTF-8):	Cryptopp - biblioteka klas C++ dostarczająca narzędzia do kryptografii
@@ -18,6 +14,7 @@ Group:		Libraries
 Source0:	http://downloads.sourceforge.net/cryptopp/%{name}%{orig_ver}.zip
 # Source0-md5:	4ee7e5cdd4a45a14756c169eaf2a77fc
 Source1:	%{name}.pc
+Patch0:		%{name}-libdir.patch
 URL:		http://www.cryptopp.com/
 BuildRequires:	cmake >= 2.8.5
 BuildRequires:	libstdc++-devel
@@ -58,6 +55,7 @@ Statyczna biblioteka Cryptopp.
 
 %prep
 %setup -q -c
+%patch0 -p1
 
 %build
 install -d build
