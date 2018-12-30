@@ -5,15 +5,15 @@
 Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
 Summary(pl.UTF-8):	Cryptopp - biblioteka klas C++ dostarczająca narzędzia do kryptografii
 Name:		cryptopp
-Version:	5.6.5
-%define	 f_ver	%(echo %{version} | tr -d .)
+Version:	8.0.0
+%define	tag_ver	%(echo %{version} | tr . _)
 Release:	1
 License:	Boost v1.0 (BSD-like)
 Group:		Libraries
-Source0:	http://downloads.sourceforge.net/cryptopp/%{name}%{f_ver}.zip
-# Source0-md5:	839aa27c70fa70037185ae7be8d8d24d
+#Source0Download: https://github.com/weidai11/cryptopp/releases
+Source0:	https://github.com/weidai11/cryptopp/archive/CRYPTOPP_%{tag_ver}/%{name}-%{tag_ver}.tar.gz
+# Source0-md5:	df7f9974d48806e8aaabcabfbfcdbb61
 Source1:	%{name}.pc
-Patch0:		%{name}-opt.patch
 URL:		http://www.cryptopp.com/
 BuildRequires:	libstdc++-devel
 BuildRequires:	unzip
@@ -52,8 +52,7 @@ Static Cryptopp library.
 Statyczna biblioteka Cryptopp.
 
 %prep
-%setup -q -c
-%patch0 -p1
+%setup -q -n %{name}-CRYPTOPP_%{tag_ver}
 
 %build
 CXXFLAGS="%{rpmcxxflags}" \
@@ -97,7 +96,7 @@ rm -f %{_libdir}/libcryptopp.so.5.6
 %defattr(644,root,root,755)
 %doc License.txt Readme.txt
 %attr(755,root,root) %{_libdir}/libcryptopp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libcryptopp.so.5.6
+%attr(755,root,root) %ghost %{_libdir}/libcryptopp.so.8
 
 %files devel
 %defattr(644,root,root,755)
