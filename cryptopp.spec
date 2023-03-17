@@ -1,23 +1,29 @@
 #
 # Conditional build:
-%bcond_without	tests		# build without tests
+%bcond_without	tests	# testing
+%bcond_with	sse2	# SSE2 instructions
+
+%ifarch pentium4 %{x8664} x32
+%define	with_sse2	1
+%endif
 
 Summary:	Cryptopp Library - a free C++ class library of cryptographic schemes
 Summary(pl.UTF-8):	Cryptopp - biblioteka klas C++ dostarczająca narzędzia do kryptografii
 Name:		cryptopp
-Version:	8.2.0
+Version:	8.7.0
 %define	tag_ver	%(echo %{version} | tr . _)
 Release:	1
 License:	Boost v1.0 (BSD-like)
 Group:		Libraries
 #Source0Download: https://github.com/weidai11/cryptopp/releases
 Source0:	https://github.com/weidai11/cryptopp/archive/CRYPTOPP_%{tag_ver}/%{name}-%{tag_ver}.tar.gz
-# Source0-md5:	5bc45a6047132f49dbff9261e5ca0fac
+# Source0-md5:	69b11e59094c10d437f295f11e51c16a
 Source1:	%{name}.pc
-URL:		http://www.cryptopp.com/
+URL:		https://cryptopp.com/
 BuildRequires:	libstdc++-devel
 BuildRequires:	unzip
-Obsoletes:	cryptopp-progs
+%{?with_sse2:Requires:	cpuinfo(sse2)}
+Obsoletes:	cryptopp-progs < 5.6
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -55,7 +61,7 @@ Statyczna biblioteka Cryptopp.
 %setup -q -n %{name}-CRYPTOPP_%{tag_ver}
 
 %build
-CXXFLAGS="%{rpmcxxflags}" \
+CXXFLAGS="%{rpmcxxflags} %{!?with_sse2:-DCRYPTOPP_DISABLE_SSE2} %{?with_sse2:-msse2}" \
 %{__make} shared static %{?with_tests:cryptest.exe} \
 	CXX="%{__cxx}"
 
